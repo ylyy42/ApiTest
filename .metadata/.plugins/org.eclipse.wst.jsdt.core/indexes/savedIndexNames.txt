@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\Administrator.User -2022YSWXV\Desktop\ApiTest\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+72963899.index
+1138643454.index
+3373982215.index
+1122014175.index
+4071943167.index
+2984499841.index

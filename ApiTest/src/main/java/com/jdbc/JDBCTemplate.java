@@ -1,0 +1,80 @@
+package com.jdbc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class JDBCTemplate {
+	public static Connection getConnection() {
+		Connection conn = null;
+
+		try {
+			Context initContext = new InitialContext();
+			Context envContext = (Context) initContext.lookup("java:/comp/env");
+			DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
+			conn = ds.getConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}
+
+	public static void close(Connection conn, Statement stmt, ResultSet rs) {
+		try {
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void close(Connection conn, Statement stmt) {
+		try {
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void close(Connection conn, PreparedStatement psmt) {
+		try {
+			psmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static boolean isConnection(Connection con) {
+		boolean valid = true;
+
+		try {
+			if (con == null || con.isClosed()) {
+				valid = false;
+			}
+		} catch (SQLException e) {
+			valid = true;
+			e.printStackTrace();
+		}
+
+		return valid;
+	}
+
+	public static void commit(Connection con) {
+		if (isConnection(con)) {
+			try {
+				con.commit();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

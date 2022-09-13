@@ -1,0 +1,24 @@
+$(function() {
+	getJson();
+});
+
+function getJson() {
+	$.getJSON("json/lib.json", function(data){
+		$.each(data, function(key, val) {
+			if(key=="DESCRIPTION") {
+				$("table").attr("border", "1");
+				
+				$("thead").append(
+					"<tr>"+
+						"<th>"+val.GU_CODE+"<th>"+
+						"<th>"+val.LBRRY_SEQ_NO+"<th>"+
+						"<th>"+val.LBRRY_NAME+"<th>"+
+						"<th>"+val.ADRES+"<th>"+
+						"<th>"+val.TEL_NO+"<th>"+
+						"<th>"+val.HMPG_URL+"<th>"+
+					"</tr>"
+				);
+			};
+		});
+	});
+};
